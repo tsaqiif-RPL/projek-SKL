@@ -1,0 +1,169 @@
+.body{
+    padding: 0;
+    margin: 0;
+}
+
+.nama{
+    color: white;
+}
+
+.nav{
+    display: flex;
+    flex-direction:row;
+    justify-content: space-around;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    width: 100%;
+}
+
+.menu{
+    display: flex;
+    gap: 25px;
+}
+
+.nav{
+    background-color:black;
+}
+
+.fullname{
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.perkenalan{
+    display: flex;
+  flex-direction: row;       /* Menyusun teks dan foto bersebelahan (Kiri - Kanan) */
+  align-items: center;        /* Membuat teks dan foto sejajar secara vertikal di tengah */
+  justify-content: space-between; /* Memberi jarak otomatis antara teks (kiri) dan foto (kanan) */
+  padding: 60px 10%;          /* Jarak aman dari pinggir layar */
+  gap: 40px;
+}
+
+.hero{
+    flex: 1;
+}
+
+.button{
+    background-color: black;
+    border-radius: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+    letter-spacing: 1px;
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+}
+
+.menu a:hover {
+    color: grey;
+}
+
+.foto{
+    display: flex;
+    gap: 50px;
+    justify-content: right;
+    flex-direction: row;
+    flex-shrink: 0;
+}
+
+.bottom{
+    margin-bottom: 100px;
+}
+
+.project{
+    display: flex;
+    gap: 100px;
+    justify-content: center;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+
+.test{
+    display: flex;
+    gap: 100px;
+    justify-content: center;
+    flex-direction: row;
+}
+
+/* Judul Section */
+.judul {
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 40px;
+}
+
+/* Wadah Utama (Membuat tampilan Kiri - Kanan) */
+.wadah {
+  display: flex;
+  justify-content: space-around; /* Rata tengah */
+  align-items: flex-start;
+  gap: 60px;               /* Jarak antar card projek */
+  flex-wrap: wrap;         /* Biar aman di layar HP */
+}
+
+/* Card Per-Projek */
+.card-project {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 350px;
+  text-align: center;
+}
+
+.subjudul {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1a1a1a;          /* Ganti sesuai tema web kamu */
+  margin-bottom: 16px;
+}
+
+/* Container Gambar & Efek Hover */
+.logo {
+  width: 100%;
+  max-width: 320px;
+  height: 200px;
+  border-radius: 12px;
+  overflow: hidden;        /* Agar gambar melengkung rapi saat membesar */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.4s ease, transform 0.4s ease;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;     /* Gambar proporsional tidak gepeng */
+  filter: grayscale(100%); /* Hitam putih saat diam */
+  transform: scale(1);
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+/* HOVER EFFECT (Saat kursor diarahkan) */
+.logo:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+  transform: translateY(-5px); /* Card sedikit terangkat */
+}
+
+.logo:hover img {
+  filter: grayscale(0%);      /* Berwarna kembali */
+  transform: scale(1.08);     /* Gambar membesar halus */
+}
+
+
+@media (max-width: 780px) {
+    main a {
+        color: black;
+    }
+    
+}

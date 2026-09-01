@@ -1,0 +1,42 @@
+.body{
+    padding: 0;
+    margin: 0;
+}
+
+.nav{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.grid{
+    display: grid;
+    grid-template-columns: 250px 1fr 1fr;
+    grid-template-rows: 60px 200px 50px;
+    grid-template-areas: 
+    "header header"
+    "sidebar content"
+    "footer footer";
+    gap: 10px;
+    background-color: cornsilk;
+    padding: 10px;
+}
+
+.header{
+    grid-area: header;
+    background-color: cornsilk;
+}
+
+.sidebar{
+    grid-area: sidebar;
+    background-color: cornsilk;
+}
+
+.content{
+    grid-area: content;
+    background-color:cornsilk;
+}
+
+.footer{
+    grid-area: footer;
+    background-color: cornsilk;
+}

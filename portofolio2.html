@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portofolio - Muhammad Tsaqiif Abiyyu Arkan</title>
+
+  <!-- Font dari Google Fonts: satu untuk gaya tulisan tangan (judul), satu untuk teks biasa -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Stack+Sans+Notch:wght@200..700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="portofolio.css">
+</head>
+<body>
+
+  <!-- ===== GARIS SPIRAL BUKU CATATAN DI PINGGIR KIRI ===== -->
+  <div class="spiral" aria-hidden="true"></div>
+
+  <!-- ===== HEADER: bagian paling atas halaman (bungkus navbar) ===== -->
+  <header class="site-header">
+    <nav class="navbar">
+      <a class="navbar__logo" href="https://idn.sch.id" target="_blank">
+        <img src="image/idn.png" alt="Logo IDN" width="110" height="100">
+      </a>
+
+      <!-- Teks judul di tengah navbar -->
+      <p class="navbar__title"><h1>About Me</h1></p>
+
+      <ul class="navbar__links">
+        <li><a href="#karya">Karya</a></li>
+        <li><a href="https://www.instagram.com/tsaqiif.co/" target="_blank">Contact Me At Instagram</a></li>
+        <li><button id="edit-toggle-btn" class="edit-btn" type="button">🔒 Edit</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="page">
+
+    <!-- ===== BAGIAN HERO / SAMPUL ===== -->
+    <section class="hero">
+      <p class="eyebrow">// perkenalan diri</p>
+      <h1 class="hero-title">Halo, aku <span class="highlight editable" data-key="nama">Muhammad Tsaqiif Abiyyu Arkan</span> 👋</h1>
+      <p class="hero-subtitle editable" data-key="subtitle">Murid SMK IDN Boarding School Solo</p>
+
+      <!-- Kartu Pelajar sebagai elemen utama halaman -->
+      <div class="id-card">
+        <div class="id-card__tape"></div>
+        <div class="id-card__photo">
+          <span>
+            <img src="image/tsaqiif.png"width="90" height="100" alt="Foto Kartu Pelajar">
+          </span>
+        </div>
+        <div class="id-card__info">
+          <p class="id-card__label">Kartu Pelajar</p>
+          <h2 class="id-card__name editable" data-key="card-nama">Muhammad Tsaqiif Abiyyu Arkan</h2>
+          <ul class="id-card__details">
+            <li><strong>Sekolah</strong> — <span class="editable" data-key="sekolah">SMK IDN Boarding School Solo</span></li>
+            <li><strong>Kelas</strong> — <span class="editable" data-key="kelas">X RPL A</span></li>
+            <li><strong>Asal</strong> — <span class="editable" data-key="asal">Semarang</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== BAGIAN TENTANG AKU ===== -->
+    <section class="section" id="tentang">
+      <p class="section-label">01 — Tentang Aku</p>
+      <p class="section-text editable" data-key="tentang">
+         Aku suka membaca novel Tere Liye dan bermain futsal, aku pun juga memiliki keingintahuan yang tinggi.
+      </p>
+    </section>
+
+    <!-- ===== BAGIAN HOBI & MINAT ===== -->
+    <section class="section" id="hobi">
+      <p class="section-label">02 — Hobi & Minat</p>
+      <div class="tags">
+        <span class="tag editable" data-key="hobi-1">Membaca</span>
+        <span class="tag editable" data-key="hobi-3">Olahraga</span>
+      </div>
+    </section>
+
+    <!-- ===== BAGIAN KATA-KATA FAVORIT / MOTO ===== -->
+    <section class="section quote-section" id="motto">
+      <p class="section-label">03 — Motto</p>
+      <blockquote class="quote editable" data-key="motto">
+        "man shobaro zofiro"
+      </blockquote>
+    </section>
+
+    <!-- ===== BAGIAN KARYA-KARYA ===== -->
+    <section class="section" id="karya">
+      <p class="section-label">04 — Karya-Karya</p>
+
+      <!-- Muncul kalau belum ada karya sama sekali -->
+      <p id="karya-empty" class="karya-empty">
+        Belum ada karya yang ditambahkan.
+      </p>
+
+      <!-- Tempat kartu-kartu karya bakal muncul (diisi otomatis lewat JS) -->
+      <div id="karya-grid" class="karya-grid"></div>
+
+      <!-- Tombol nambah karya baru -->
+      <button id="karya-add-btn" class="karya-add-btn" type="button">+ Tambah Karya</button>
+    </section>
+
+    <!-- ===== BAGIAN KONTAK ===== -->
+
+
+  <!-- Script buat fitur admin panel (edit langsung + simpan ke browser) -->
+  <script src="admin.js"></script>
+
+</body>
+</html>

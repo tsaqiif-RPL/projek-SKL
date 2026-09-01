@@ -1,0 +1,543 @@
+/* ============================================
+   VARIABEL WARNA & FONT (biar gampang diganti)
+   ============================================ */
+:root {
+  --paper: #faf8f2;          /* warna kertas / background */
+  --paper-line: #d9e6e8;     /* warna garis buku catatan */
+  --ink: #1d3557;            /* warna teks utama, biru tinta */
+  --ink-soft: #4a5a6a;       /* teks sekunder, abu kebiruan */
+  --red-pen: #e63946;        /* aksen merah, seperti coretan pulpen */
+  --sky: #a8dadc;            /* aksen biru muda */
+  --font-hand: 'Stack Sans Notch', sans-serif;
+  --font-body: 'Poppins', sans-serif;
+}
+
+/* ============================================
+   ANIMASI SAAT HALAMAN DIBUKA
+   ============================================
+   @keyframes itu kayak bikin "rekaman gerakan": kita atur
+   posisi di awal (from) dan di akhir (to), nanti browser yang
+   otomatis ngegerakin elemennya pelan-pelan di antara dua titik itu. */
+@keyframes muncul-dari-bawah {
+  from {
+    opacity: 0;           /* mulai dari tak terlihat */
+    transform: translateY(16px); /* mulai agak turun 16px */
+  }
+  to {
+    opacity: 1;            /* jadi terlihat penuh */
+    transform: translateY(0); /* posisi normal */
+  }
+}
+
+/* ============================================
+   HEADER (pembungkus navbar, nempel di paling atas)
+   ============================================ */
+.site-header {
+  /* position: sticky = nempel di posisi tertentu (top: 0, paling atas)
+     pas halaman di-scroll ke bawah, header-nya ikutan "ngambang" di atas */
+  position: sticky;
+  top: 0;
+  z-index: 10; /* biar header-nya di atas elemen lain, ga ketutupan */
+
+  background: rgba(250, 248, 242, 0.85); /* warna kertas, agak transparan */
+  backdrop-filter: blur(8px); /* efek blur/kabur di belakang header */
+  border-bottom: 1px solid rgba(29, 53, 87, 0.1);
+}
+
+/* .navbar sekarang cuma ngatur susunan logo & menu di dalam header,
+   ga perlu urusan sticky/warna lagi karena udah dihandle .site-header */
+.navbar {
+  position: relative; /* jadi "titik acuan" buat posisi judul di tengah */
+  display: flex;
+  justify-content: space-between; /* logo di kiri, menu di kanan */
+  align-items: center;
+  padding: 18px 32px;
+}
+
+/* Judul di tengah navbar.
+   position: absolute + left: 50% + transform: translateX(-50%)
+   itu trik standar buat naruh sesuatu PERSIS di tengah horizontal,
+   nggak peduli logo di kiri / menu di kanan lebarnya berapa. */
+.navbar__title {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); /* geser balik setengah lebar & tingginya sendiri, biar pas center */
+  font-family: var(--font-hand);
+  font-size: 1rem;
+  color: var(--ink);
+  white-space: nowrap; /* teksnya jangan sampai patah ke baris baru */
+}
+
+/* Di layar kecil (HP), judul tengah disembunyikan dulu biar nggak numpuk
+   sama logo & menu yang udah sempit */
+@media (max-width: 640px) {
+  .navbar__title { display: none; }
+}
+
+/* ============================================
+   ADMIN PANEL: tombol edit & efek mode edit
+   ============================================ */
+.edit-btn {
+  /* reset gaya bawaan <button> biar bisa didesain bebas */
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--ink);
+  background: #ffffff;
+  border: 1px solid var(--sky);
+  border-radius: 999px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.edit-btn:hover {
+  background-color: var(--sky);
+}
+
+/* Pas mode edit AKTIF (body dikasih class "is-editing" lewat JS),
+   semua elemen .editable dikasih garis putus-putus biar kelihatan
+   jelas mana yang bisa diklik & diketik ulang */
+.is-editing .editable {
+  outline: 1px dashed var(--red-pen);
+  outline-offset: 2px;
+  border-radius: 4px;
+  cursor: text;
+}
+
+/* Pas lagi difokus/diklik buat diketik, outline-nya dipertebal */
+.is-editing .editable:focus {
+  outline: 2px solid var(--red-pen);
+  background-color: rgba(230, 57, 70, 0.06);
+}
+
+/* ============================================
+   KARYA-KARYA
+   ============================================ */
+.karya-empty {
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  margin-bottom: 16px;
+}
+
+/* Waktu udah ada minimal 1 karya, teks "belum ada karya" ini disembunyikan lewat JS */
+.karya-empty.hidden {
+  display: none;
+}
+
+.karya-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.karya-card {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid rgba(29, 53, 87, 0.12);
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 8px 16px rgba(29, 53, 87, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.karya-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 24px rgba(29, 53, 87, 0.1);
+}
+
+/* Class ini cuma ditambahin lewat JS kalau karyanya punya link,
+   biar kartu yang gak ada link-nya nggak keliatan "bisa diklik" */
+.karya-card--clickable {
+  cursor: pointer;
+}
+
+.karya-card--clickable:hover {
+  border-color: var(--red-pen);
+}
+
+.karya-card__judul {
+  font-family: var(--font-hand);
+  font-size: 0.9rem;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+
+.karya-card__gambar {
+  width: 100%;
+  height: 70px;
+  object-fit: cover; /* biar foto kepotong rapi, ga gepeng, sesuai bingkainya */
+  border-radius: 6px;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.karya-card__deskripsi {
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+}
+
+.karya-card__link {
+  font-size: 0.8rem;
+  color: var(--red-pen);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.karya-card__link:hover {
+  text-decoration: underline;
+}
+
+/* Tombol hapus (x) di pojok kanan atas kartu, cuma nongol pas mode edit aktif */
+.karya-card__delete {
+  display: none; /* default disembunyikan */
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: none;
+  background: var(--red-pen);
+  color: #ffffff;
+  font-size: 0.75rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.is-editing .karya-card__delete {
+  display: block; /* muncul cuma pas mode edit aktif */
+}
+
+/* Tombol "+ Tambah Karya" */
+.karya-add-btn {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--ink);
+  background: #ffffff;
+  border: 1.5px dashed var(--sky);
+  border-radius: 10px;
+  padding: 10px 18px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.karya-add-btn:hover {
+  background-color: var(--sky);
+  border-color: var(--red-pen);
+}
+
+.navbar__logo {
+  font-family: var(--font-hand);
+  font-size: 1.2rem;
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.navbar__links {
+  display: flex;
+  gap: 24px;
+  list-style: none; /* hilangin bulatan/titik bawaan <ul> */
+}
+
+.navbar__links a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.navbar__links a:hover {
+  color: var(--red-pen);
+}
+
+/* Di layar kecil (HP), sembunyiin teks menu biar ga sempit,
+   nanti bisa dikembangin lagi jadi menu hamburger kalau sudah lebih jago */
+@media (max-width: 480px) {
+  .navbar { padding: 14px 20px; }
+  .navbar__links { gap: 14px; }
+  .navbar__links a { font-size: 0.8rem; }
+}
+
+/* ============================================
+   RESET DASAR
+   ============================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background-color: var(--paper);
+  /* garis-garis horizontal seperti buku catatan */
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 34px,
+    var(--paper-line) 35px
+  );
+  line-height: 1.6;
+}
+
+/* Garis spiral merah di pinggir kiri, seperti buku catatan */
+.spiral {
+  position: fixed;
+  top: 0;
+  left: 48px;
+  width: 2px;
+  height: 100%;
+  background-color: var(--red-pen);
+  opacity: 0.5;
+  z-index: 0;
+}
+
+.page {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 64px 32px 48px 96px; /* padding kiri lebih besar karena ada garis spiral */
+}
+
+@media (max-width: 640px) {
+  .spiral { left: 24px; }
+  .page { padding: 48px 20px 40px 52px; }
+}
+
+/* ============================================
+   HERO / SAMPUL
+   ============================================ */
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  /* jalanin animasi "muncul-dari-bawah" selama 0.6 detik, sekali aja,
+     dan biar hasil akhirnya (opacity:1) tetep nempel setelah selesai (forwards) */
+  animation: muncul-dari-bawah 0.6s ease forwards;
+}
+
+.hero-title {
+  font-family: var(--font-hand);
+  font-size: clamp(2.2rem, 6vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 12px;
+  /* delay 0.15s biar muncul abis eyebrow, ga bareng-bareng */
+  animation: muncul-dari-bawah 0.6s ease 0.15s forwards;
+  opacity: 0; /* disembunyiin dulu sebelum animasi jalan */
+}
+
+.highlight {
+  color: var(--red-pen);
+  position: relative;
+}
+
+.hero-subtitle {
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+  max-width: 46ch;
+  margin-bottom: 40px;
+  animation: muncul-dari-bawah 0.6s ease 0.3s forwards;
+  opacity: 0;
+}
+
+/* ============================================
+   KARTU PELAJAR (elemen utama / signature)
+   ============================================ */
+.id-card {
+  position: relative;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid rgba(29, 53, 87, 0.12);
+  border-radius: 14px;
+  padding: 24px;
+  max-width: 520px;
+  box-shadow: 0 12px 24px rgba(29, 53, 87, 0.08);
+  transform: rotate(-2deg);
+  animation: muncul-dari-bawah 0.6s ease 0.45s forwards;
+  opacity: 0;
+  /* transition: biar perubahan pas di-hover (miring & bayangan) jalan
+     halus, bukan langsung "kedip" pindah posisi */
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* :hover artinya "kalau mouse nempel di atas elemen ini".
+   Efeknya kartu jadi lurus (rotate 0) & keliatan lebih "ngangkat" */
+.id-card:hover {
+  transform: rotate(0deg) translateY(-4px);
+  box-shadow: 0 18px 32px rgba(29, 53, 87, 0.14);
+}
+
+.id-card__tape {
+  position: absolute;
+  top: -14px;
+  left: 32px;
+  width: 70px;
+  height: 24px;
+  background: rgba(168, 218, 220, 0.55);
+  border: 1px solid rgba(168, 218, 220, 0.8);
+  transform: rotate(-4deg);
+}
+
+.id-card__photo {
+  flex-shrink: 0;
+  width: 84px;
+  height: 100px;
+  background: var(--sky);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.id-card__label {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--red-pen);
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.id-card__name {
+  font-family: var(--font-hand);
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+
+.id-card__details {
+  list-style: none;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}
+
+.id-card__details li {
+  margin-bottom: 2px;
+}
+
+.id-card__details strong {
+  color: var(--ink);
+}
+
+/* ============================================
+   SECTION UMUM
+   ============================================ */
+.section {
+  margin-top: 56px;
+}
+
+.section-label {
+  font-family: var(--font-hand);
+  font-size: 1.3rem;
+  color: var(--red-pen);
+  margin-bottom: 12px;
+}
+
+.section-text {
+  color: var(--ink-soft);
+  max-width: 58ch;
+}
+
+/* ============================================
+   TAG HOBI
+   ============================================ */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tag {
+  font-size: 0.85rem;
+  padding: 8px 16px;
+  background: #ffffff;
+  border: 1px solid var(--sky);
+  border-radius: 999px;
+  color: var(--ink);
+  transition: background-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
+}
+
+/* Pas tag di-hover: background jadi biru muda & sedikit naik ke atas.
+   translateY(-2px) = geser ke atas 2px (angka minus = ke atas) */
+.tag:hover {
+  background-color: var(--sky);
+  transform: translateY(-2px);
+}
+
+/* ============================================
+   QUOTE / MOTTO
+   ============================================ */
+.quote {
+  font-family: var(--font-hand);
+  font-size: 1.4rem;
+  color: var(--ink);
+  border-left: 3px solid var(--red-pen);
+  padding-left: 18px;
+  max-width: 50ch;
+}
+
+/* ============================================
+   FOOTER / KONTAK
+   ============================================ */
+.footer {
+  margin-top: 72px;
+  padding-top: 24px;
+  border-top: 1px dashed rgba(29, 53, 87, 0.2);
+}
+
+.contact-links {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 16px;
+}
+
+.contact-links a {
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border-bottom: 2px solid var(--sky);
+  padding-bottom: 2px;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.contact-links a:hover,
+.contact-links a:focus-visible {
+  color: var(--red-pen);
+  border-color: var(--red-pen);
+}
+
+.footer-note {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+/* Aksesibilitas: outline fokus terlihat jelas saat navigasi keyboard */
+a:focus-visible {
+  outline: 2px solid var(--red-pen);
+  outline-offset: 3px;
+}
+
+/* Hormati preferensi pengguna yang tidak suka animasi */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}

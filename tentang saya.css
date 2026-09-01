@@ -1,0 +1,35 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    top: 0;
+     width: 100%;
+}
+
+
+.nama{
+    color: white;
+}
+
+.menu{
+    display: flex;
+    gap: 25px;
+}
+
+.nav{
+    background-color:black;
+}
+
+.menu a {
+    color: white;
+}
+
+.menu a:hover {
+    color: grey;
+}

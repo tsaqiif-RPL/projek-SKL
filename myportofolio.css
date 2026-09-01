@@ -1,0 +1,295 @@
+.body{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 80px;
+  background-color: #0F172A;
+}
+
+.logo h2 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.logo h2 span {
+  color: grey;
+}
+
+.menu a {
+  
+  text-decoration: none;
+  color: #ffffff;
+  padding: 8px 16px;
+  position: relative;
+  z-index: 1;
+  transition: color 0.3s ease;
+}
+
+
+.menu a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color:#ffffff; 
+  border: 1px solid grey;                  
+  border-radius: 6px;
+  z-index: -1; 
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: right; 
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.menu a:hover{
+    color:grey;
+}
+
+.menu a:hover::before {
+  opacity: 1;
+  transform: scaleX(1);
+  transform-origin: left; 
+}
+
+.main{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 100px;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 80px 10%;
+  min-height: calc(100vh - 80px);
+}
+
+.hero-text {
+  max-width: 50%;
+}
+
+.pembuka {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.fullname {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+.sub-title {
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+
+.sub-title a {
+  color: blue;
+  text-decoration: underline;
+}
+
+.description {
+  font-size: 18px;
+  color: #666;
+  font-weight: bold;
+  margin-bottom: 35px;
+}
+
+.btn-contact {
+  display: inline-block;
+  padding: 12px 30px;
+  background-color: #000;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 25px;
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+
+
+.hero-image {
+  max-width: 45%;
+}
+
+.hero-image img {
+  width: 350px;
+  height: 420px;
+  object-fit: cover;
+  border: 4px solid #000;
+}
+
+.project{
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;                
+  flex-wrap: wrap;
+}
+
+.card-karya {
+  display: flex;
+  flex-direction: column;   
+  align-items: center;
+  text-align: center;
+}
+
+.deskripsi {
+  max-width: 500px;     
+  width: 100%;         
+  text-align: center;   
+  margin-top: 12px;    
+  line-height: 1.5; 
+}
+
+.wadah {
+  display: flex;
+  flex-direction: row;        
+  justify-content: center;    
+  align-items: flex-start;
+  gap: 80px;                  
+}
+
+
+.card-project {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 350px;              
+}
+
+.subjudul {
+  font-size: 22px;
+  font-weight: bold;
+  color: #ffffff;            
+  height: 60px;              
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.logo {
+  width: 100%;
+  height: 220px;
+  background-color: #ffffff; 
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;       
+  filter: grayscale(100%);   
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+/* Efek Hover */
+.logo:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(56, 189, 248, 0.3); 
+}
+
+.logo:hover img {
+  filter: grayscale(0%);   
+  transform: scale(1.05);   
+}
+
+
+@media (max-width: 768px) {
+
+  
+  .nav {
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px 15px;
+  }
+
+  .menu {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap; 
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+  }
+
+ 
+  .hero {
+    flex-direction: column-reverse; 
+    text-align: center;
+    padding: 30px 20px;
+    min-height: auto;
+  }
+
+  .hero-text {
+    max-width: 100%;
+  }
+
+  .hero-image {
+    max-width: 100%;
+    margin-bottom: 25px;
+  }
+
+  .hero-image img {
+    width: 220px; 
+    height: 220px;
+  }
+
+  .project {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card-karya {
+    width: 100%; 
+  }
+
+  .card-karya img {
+    width: 90%; 
+    height: auto;
+  }
+
+  .deskripsi { 
+    width: 90%; 
+  }
+
+  
+  .wadah {
+    flex-direction: column; 
+    align-items: center;
+    gap: 30px;
+  }
+
+  .card-project {
+    width: 100%;             
+    max-width: 320px;        
+  }
+
+  .logo img {
+    max-width: 100%;         
+    height: auto;
+  }
+}
